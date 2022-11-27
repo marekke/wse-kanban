@@ -14,6 +14,11 @@ export default function ListForm({list, submitHandler}: ListFormProps) {
         submitHandler(title);
     }
 
+    // let removeButton;
+    // if (list) {
+    //     removeButton = <button className="btn btn-danger">Usuń</button>;
+    // }
+
     return (
         <>
             <form onSubmit={handleSubmit}>
@@ -21,10 +26,11 @@ export default function ListForm({list, submitHandler}: ListFormProps) {
                     <label>Nazwa listy</label>
                     <input type="text" className="form-control" onChange={e => setTitle(e.target.value)} value={title}/>
                 </div>
-                <div className="text-end mt-3">
-                    <button type="submit" className="btn btn-success">Utwórz</button>
+                <div className="mt-3">
+                    <button type="submit" className="btn btn-success float-end">Zapisz</button>
                 </div>
             </form>
+
         </>
     );
 }

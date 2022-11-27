@@ -1,8 +1,8 @@
 import * as listSelectors from './selectors';
-import {create, update} from './listSlice';
+import {create, update, remove} from './listSlice';
 
 export const listActions = {
-    create, update
+    create, update, remove
 }
 
 export {

@@ -7,7 +7,7 @@ export default function ListCreate() {
     const dispatch = useDispatch();
 
     function formSubmitHandler(title: string) {
-        dispatch(create({title, cardsID: []}));
+        dispatch(create({title}));
         dispatch(hide());
     }
 
