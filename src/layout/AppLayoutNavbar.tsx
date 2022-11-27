@@ -1,7 +1,7 @@
 import {useModalAction} from "../feature/modalAction";
 
 export default function AppLayoutNavbar() {
-    const {showListForm} = useModalAction();
+    const {showCreateNewListModal} = useModalAction();
 
     return (
         <nav className="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example">
@@ -24,7 +24,7 @@ export default function AppLayoutNavbar() {
                     </ul>
                 </div>
 
-                <button onClick={showListForm} className="btn btn-outline-light">
+                <button onClick={showCreateNewListModal} className="btn btn-outline-light">
                     Dodaj nową listę
                 </button>
             </div>

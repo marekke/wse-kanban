@@ -12,6 +12,11 @@ export interface INewList {
     cardsID: number[]
 }
 
+export interface IUpdateList {
+    id: number,
+    title: string
+}
+
 export interface ListState {
     [key: number]: List
 }
@@ -34,9 +39,12 @@ const listSlice = createSlice({
                 id: newID,
                 ...action.payload
             };
+        },
+        update(state, action: PayloadAction<IUpdateList>) {
+            state[action.payload.id].title = action.payload.title
         }
     }
 });
 
-export const { create } = listSlice.actions;
+export const { create, update } = listSlice.actions;
 export default listSlice.reducer;

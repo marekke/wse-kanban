@@ -2,7 +2,8 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 export enum ModalActionTypes {
     CardView = "CARDVIEW",
-    ListForm = "LISTFORM",
+    ListCreate = "LISTCREATE",
+    ListUpdate = "LISTUPDATE",
 }
 
 export interface IModalAction {

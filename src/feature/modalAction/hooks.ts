@@ -4,13 +4,21 @@ import {ModalActionTypes, show} from "./modalActionSlice";
 export function useModalAction() {
     const dispatch = useDispatch();
 
-    function showListForm() {
+    function showCreateNewListModal() {
         dispatch(show({
-            type: ModalActionTypes.ListForm,
+            type: ModalActionTypes.ListCreate,
             referenceID: null,
             title: 'Utwórz nową listę'
         }));
     }
 
-    return {showListForm}
+    function showUpdateListModal(listID: number) {
+        dispatch(show({
+            type: ModalActionTypes.ListUpdate,
+            referenceID: listID,
+            title: 'Edytuj listę'
+        }));
+    }
+
+    return {showCreateNewListModal, showUpdateListModal}
 }

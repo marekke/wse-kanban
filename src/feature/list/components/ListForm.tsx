@@ -1,17 +1,17 @@
 import {useState} from "react";
-import {useDispatch} from "react-redux";
-import {create} from "../listSlice";
-import {hide} from "../../modalAction";
+import {List} from "../listSlice";
 
-export default function ListForm() {
-    const [title, setTitle] = useState('');
-    const dispatch = useDispatch();
+interface ListFormProps {
+    list?: List
+    submitHandler: (title: string) => void
+}
+
+export default function ListForm({list, submitHandler}: ListFormProps) {
+    const [title, setTitle] = useState(list?.title || "");
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
-
-        dispatch(create({title, cardsID: []}));
-        dispatch(hide());
+        submitHandler(title);
     }
 
     return (
