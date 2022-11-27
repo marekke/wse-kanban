@@ -1,30 +1,29 @@
 import React, {useEffect, useState} from 'react';
-import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import {ModalActionTypes} from "../redux/app/reducers";
-import CardView from "./card/CardView";
-import {useSelector} from "react-redux";
-import {getModalAction} from "../redux/app/selectors";
+import {useDispatch, useSelector} from "react-redux";
+import {hide, ModalActionTypes} from "../modalActionSlice";
+import {getModalAction} from "../selectors";
+import {CardView} from "../../card";
+import {ListForm} from "../../list";
 
 export default function AppModal() {
-    const [show, setShow] = useState(false);
+    const dispatch = useDispatch();
     const modalAction = useSelector(getModalAction);
     let modalView = null;
-
-    useEffect(() => {
-        setShow(modalAction !== null)
-    },[modalAction])
 
     if (modalAction?.type === ModalActionTypes.CardView) {
         modalView = <CardView cardID={modalAction.referenceID}/>;
     }
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    if (modalAction?.type === ModalActionTypes.ListForm) {
+        modalView = <ListForm />;
+    }
+
+    const handleClose = () => dispatch(hide());
 
     return (
         <>
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={modalAction.type !== null} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title className="h6">
                         {modalAction?.title}

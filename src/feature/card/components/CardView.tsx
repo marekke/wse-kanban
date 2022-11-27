@@ -1,6 +1,6 @@
 import {useSelector} from "react-redux";
-import {getCardByID} from "../../redux/card/selectors";
-import {ApplicationState} from "../../redux/store";
+import {getCardByID} from "../selectors";
+import {ApplicationState} from "../../../app/store";
 
 interface CardViewProps {
     cardID: number

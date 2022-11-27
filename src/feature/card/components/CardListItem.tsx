@@ -1,7 +1,6 @@
-import {Card} from "../../redux/card/reducers";
 import {useDispatch} from "react-redux";
-import {showModalAction} from "../../redux/app/actions";
-import {ModalActionTypes} from "../../redux/app/reducers";
+import {ModalActionTypes, show} from "../../modalAction";
+import {Card} from "../cardSlice";
 
 interface CardViewProps {
     card: Card
@@ -12,11 +11,11 @@ export default function CardListItem(props: CardViewProps) {
     const dispatch = useDispatch();
 
     function onClickHandler() {
-        dispatch(showModalAction({
+        dispatch(show({
             type: ModalActionTypes.CardView,
             referenceID: card.id,
             title: `[#${card.id}] - Szczegóły`,
-        }))
+    }))
     }
 
     return (
