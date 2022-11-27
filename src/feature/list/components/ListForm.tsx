@@ -14,11 +14,6 @@ export default function ListForm({list, submitHandler}: ListFormProps) {
         submitHandler(title);
     }
 
-    // let removeButton;
-    // if (list) {
-    //     removeButton = <button className="btn btn-danger">Usuń</button>;
-    // }
-
     return (
         <>
             <form onSubmit={handleSubmit}>

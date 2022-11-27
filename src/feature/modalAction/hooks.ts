@@ -20,5 +20,13 @@ export function useModalAction() {
         }));
     }
 
-    return {showCreateNewListModal, showUpdateListModal}
+    function showCreateNewCardModal(listID: number) {
+        dispatch(show({
+            type: ModalActionTypes.CardCreate,
+            referenceID: listID,
+            title: 'Utwórz nową kartę'
+        }));
+    }
+
+    return {showCreateNewListModal, showUpdateListModal, showCreateNewCardModal}
 }

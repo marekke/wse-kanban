@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import {useDispatch, useSelector} from "react-redux";
 import {hide, ModalActionTypes} from "../modalActionSlice";
 import {getModalAction} from "../selectors";
-import {CardView} from "../../card";
+import {CardCreate, CardView} from "../../card";
 import {ListCreate, ListUpdate} from "../../list";
 
 export default function AppModal() {
@@ -21,6 +21,10 @@ export default function AppModal() {
 
     if (modalAction?.type === ModalActionTypes.ListUpdate) {
         modalView = <ListUpdate listID={modalAction.referenceID}/>;
+    }
+
+    if (modalAction?.type === ModalActionTypes.CardCreate) {
+        modalView = <CardCreate  listID={modalAction.referenceID} />;
     }
 
     return (

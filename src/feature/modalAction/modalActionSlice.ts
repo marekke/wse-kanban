@@ -4,6 +4,7 @@ export enum ModalActionTypes {
     CardView = "CARDVIEW",
     ListCreate = "LISTCREATE",
     ListUpdate = "LISTUPDATE",
+    CardCreate = "CARDCREATE"
 }
 
 export interface IModalAction {

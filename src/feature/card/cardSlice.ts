@@ -1,9 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import {listActions} from "../list";
+import {generateIDForEntity} from "../../utils/IDGeneratator";
 
 export interface Card {
     id: number,
+    listID: number,
+    title: string,
+    content: string
+}
+
+interface INewCard {
     listID: number,
     title: string,
     content: string
@@ -38,8 +45,12 @@ const cardSlice = createSlice({
     name: 'card',
     initialState,
     reducers: {
-        create(state, action: PayloadAction<Card>) {
-            state[action.payload.id] = action.payload;
+        create(state, action: PayloadAction<INewCard>) {
+            const newID = generateIDForEntity(state);
+            state[newID] = {
+                id: newID,
+                ...action.payload
+            };
         },
         removeMultiple(state, action: PayloadAction<number[]>) {
             action.payload.forEach(id => delete state[id]);

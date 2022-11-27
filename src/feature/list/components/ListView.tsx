@@ -12,7 +12,7 @@ interface ListViewProps {
 export default function ListView({list}: ListViewProps) {
     const cardsData = useSelector((state: ApplicationState) => cardSelectors.getCardsByListID(state, list.id));
     const cards = cardsData.map(card => <CardListItem key={card.id} card={card} />);
-    const {showUpdateListModal} = useModalAction();
+    const {showUpdateListModal, showCreateNewCardModal} = useModalAction();
     const dispatch = useDispatch();
 
     function clickRemoveListHandler(e: any) {
@@ -26,6 +26,7 @@ export default function ListView({list}: ListViewProps) {
                 <div className="mb-2">
                     <h5 onClick={() => {showUpdateListModal(list.id)}} className="card-title d-inline" style={{cursor: "pointer"}}>{list.title}</h5>
                     <Plus
+                        onClick={() => showCreateNewCardModal(list.id)}
                         className="float-end fs-2 text-secondary"
                         style={{marginTop: "-3px", marginRight: "-7px"}}
                     />
