@@ -1,11 +1,9 @@
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import AppLayoutNavbar from "./AppLayoutNavbar";
-import {ListView} from "../feature/list";
-import {listSelectors} from "../feature/list";
+import {listSelectors, ListView} from "../feature/list";
 import {AppModal} from "../feature/modalAction";
 
 function AppLayout() {
-    const dispatch = useDispatch();
     const listsData = useSelector(listSelectors.getLists);
     const lists = listsData.map(list => <ListView list={list} />);
 

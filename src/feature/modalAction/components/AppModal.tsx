@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import {useDispatch, useSelector} from "react-redux";
 import {hide, ModalActionTypes} from "../modalActionSlice";
@@ -19,11 +19,9 @@ export default function AppModal() {
         modalView = <ListForm />;
     }
 
-    const handleClose = () => dispatch(hide());
-
     return (
         <>
-            <Modal show={modalAction.type !== null} onHide={handleClose}>
+            <Modal show={modalAction.type !== null} onHide={() => dispatch(hide())}>
                 <Modal.Header closeButton>
                     <Modal.Title className="h6">
                         {modalAction?.title}

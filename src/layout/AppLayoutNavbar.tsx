@@ -1,16 +1,7 @@
-import {useDispatch} from "react-redux";
-import {ModalActionTypes, show} from "../feature/modalAction";
+import {useModalAction} from "../feature/modalAction";
 
 export default function AppLayoutNavbar() {
-    const dispatch = useDispatch();
-
-    function createNewListButtonHandler() {
-        dispatch(show({
-            type: ModalActionTypes.ListForm,
-            referenceID: null,
-            title: 'Utwórz nową listę'
-        }));
-    }
+    const {showListForm} = useModalAction();
 
     return (
         <nav className="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example">
@@ -33,7 +24,7 @@ export default function AppLayoutNavbar() {
                     </ul>
                 </div>
 
-                <button onClick={createNewListButtonHandler} className="btn btn-outline-light">
+                <button onClick={showListForm} className="btn btn-outline-light">
                     Dodaj nową listę
                 </button>
             </div>

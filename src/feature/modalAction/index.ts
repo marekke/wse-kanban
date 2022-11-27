@@ -1,3 +1,5 @@
+export * from './hooks';
+
 export {
     default as modalActionReducer,
     showModalAction,
@@ -7,4 +9,4 @@ export {
     ModalActionTypes
 } from './modalActionSlice';
 
-export {default as AppModal}from './components/AppModal'
+export {default as AppModal} from './components/AppModal'

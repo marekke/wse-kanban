@@ -1,4 +1,4 @@
-import {combineReducers, configureStore, Store} from "@reduxjs/toolkit";
+import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import {cardReducer, CardState} from "../feature/card";
 import {listReducer, ListState} from "../feature/list";
 import {modalActionReducer, IModalAction} from "../feature/modalAction";
