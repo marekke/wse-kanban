@@ -1,22 +1,21 @@
 import CardForm, {ICardFormData} from "./CardForm";
 import {useDispatch} from "react-redux";
 import {create} from "../cardSlice";
-import {hide} from "../../modalAction";
+import {useNavigate, useParams} from "react-router-dom";
 
-interface CardCreateProps {
-    listID: number
-}
 
-export default function CardCreate({listID}: CardCreateProps) {
+export default function CardCreate() {
+    const {listID} = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     function formSubmitHandler(formData: ICardFormData) {
         dispatch(create({
-            listID,
+            listID: Number(listID),
             title: formData.title,
             content: formData.content,
         }));
-        dispatch(hide());
+        navigate(-1);
     }
 
     return (

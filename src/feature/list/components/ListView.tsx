@@ -4,6 +4,7 @@ import {ApplicationState} from "../../../app/store";
 import {CardListItem, cardSelectors} from "../../card";
 import {List, remove} from "../listSlice";
 import {useModalAction} from "../../modalAction";
+import ModalLink from "../../../components/helpers/ModalLink";
 
 interface ListViewProps {
     list: List
@@ -12,7 +13,7 @@ interface ListViewProps {
 export default function ListView({list}: ListViewProps) {
     const cardsData = useSelector((state: ApplicationState) => cardSelectors.getCardsByListID(state, list.id));
     const cards = cardsData.map(card => <CardListItem key={card.id} card={card} />);
-    const {showUpdateListModal, showCreateNewCardModal} = useModalAction();
+    const {showUpdateListModal} = useModalAction();
     const dispatch = useDispatch();
 
     function clickRemoveListHandler(e: any) {
@@ -25,11 +26,12 @@ export default function ListView({list}: ListViewProps) {
             <div className="card-body pt-2 bg-light">
                 <div className="mb-2">
                     <h5 onClick={() => {showUpdateListModal(list.id)}} className="card-title d-inline" style={{cursor: "pointer"}}>{list.title}</h5>
-                    <Plus
-                        onClick={() => showCreateNewCardModal(list.id)}
-                        className="float-end fs-2 text-secondary"
-                        style={{marginTop: "-3px", marginRight: "-7px"}}
-                    />
+                    <ModalLink to={`/lists/${list.id}/cards/create`}>
+                        <Plus
+                            className="float-end fs-2 text-secondary"
+                            style={{marginTop: "-3px", marginRight: "-7px"}}
+                        />
+                    </ModalLink>
                 </div>
 
                 {cards}

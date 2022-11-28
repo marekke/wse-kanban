@@ -1,13 +1,15 @@
 import {useSelector} from "react-redux";
 import {getCardByID} from "../selectors";
 import {ApplicationState} from "../../../app/store";
+import {useParams} from "react-router-dom";
 
 interface CardViewProps {
     cardID: number
 }
 
-export default function CardView({cardID}: CardViewProps) {
-    const card = useSelector((state: ApplicationState) => getCardByID(state, cardID));
+export default function CardView() {
+    const {cardID} = useParams();
+    const card = useSelector((state: ApplicationState) => getCardByID(state, Number(cardID)));
 
     return (
         <>

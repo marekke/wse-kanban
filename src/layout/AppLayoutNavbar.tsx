@@ -1,8 +1,6 @@
-import {useModalAction} from "../feature/modalAction";
+import ModalLink from "../components/helpers/ModalLink";
 
 export default function AppLayoutNavbar() {
-    const {showCreateNewListModal} = useModalAction();
-
     return (
         <nav className="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example">
             <div className="container-fluid">
@@ -24,9 +22,11 @@ export default function AppLayoutNavbar() {
                     </ul>
                 </div>
 
-                <button onClick={showCreateNewListModal} className="btn btn-outline-light">
-                    Dodaj nową listę
-                </button>
+                <ModalLink to={"/lists/create"}>
+                    <button className="btn btn-outline-light">
+                        Dodaj nową listę
+                    </button>
+                </ModalLink>
             </div>
         </nav>
     );

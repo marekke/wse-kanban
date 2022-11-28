@@ -11,21 +11,21 @@ export default function AppModal() {
     const modalAction = useSelector(getModalAction);
     let modalView = null;
 
-    if (modalAction?.type === ModalActionTypes.ListCreate) {
-        modalView = <ListCreate/>;
-    }
+    // if (modalAction?.type === ModalActionTypes.ListCreate) {
+    //     modalView = <ListCreate/>;
+    // }
+    //
+    // if (modalAction?.type === ModalActionTypes.ListUpdate) {
+    //     modalView = <ListUpdate listID={modalAction.referenceID}/>;
+    // }
+    //
+    // if (modalAction?.type === ModalActionTypes.CardView) {
+    //     modalView = <CardView cardID={modalAction.referenceID}/>;
+    // }
 
-    if (modalAction?.type === ModalActionTypes.ListUpdate) {
-        modalView = <ListUpdate listID={modalAction.referenceID}/>;
-    }
-
-    if (modalAction?.type === ModalActionTypes.CardView) {
-        modalView = <CardView cardID={modalAction.referenceID}/>;
-    }
-
-    if (modalAction?.type === ModalActionTypes.CardCreate) {
-        modalView = <CardCreate  listID={modalAction.referenceID} />;
-    }
+    // if (modalAction?.type === ModalActionTypes.CardCreate) {
+    //     modalView = <CardCreate  listID={modalAction.referenceID} />;
+    // }
 
     return (
         <Modal show={modalAction.type !== null} onHide={() => dispatch(hide())}>
