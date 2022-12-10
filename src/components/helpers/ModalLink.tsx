@@ -9,7 +9,7 @@ export default function ModalLink(props: ModalLinkProps) {
     const location = useLocation();
 
     return(
-        <Link to={props.to} state={{ background: location }}>
+        <Link to={props.to} state={{ background: location }} className='text-decoration-none'>
             {props.children}
         </Link>
     );

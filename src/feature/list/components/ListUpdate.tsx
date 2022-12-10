@@ -2,20 +2,20 @@ import ListForm from "./ListForm";
 import {useDispatch, useSelector} from "react-redux";
 import {getListByID} from "../selectors";
 import {ApplicationState} from "../../../app/store";
-import {hide} from "../../modalAction";
 import {update} from "../listSlice";
+import {useNavigate, useParams} from "react-router-dom";
 
-interface ListUpdateProps {
-    listID: number
-}
 
-export default function ListUpdate({listID}: ListUpdateProps) {
-    const list = useSelector((state: ApplicationState) => getListByID(state, listID));
+export default function ListUpdate() {
+    const {listID} = useParams();
+    const navigate = useNavigate();
+
+    const list = useSelector((state: ApplicationState) => getListByID(state, Number(listID)));
     const dispatch = useDispatch();
 
     function formSubmitHandler(title: string) {
-        dispatch(update({id: listID, title}));
-        dispatch(hide());
+        dispatch(update({id: Number(listID), title}));
+        navigate(-1);
     }
 
     return (

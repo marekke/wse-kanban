@@ -4,7 +4,7 @@ import {listSelectors, ListView} from "../feature/list";
 
 function AppLayout() {
     const listsData = useSelector(listSelectors.getLists);
-    const lists = listsData.map(list => <ListView list={list} />);
+    const lists = listsData.map(list => <ListView key={list.id} list={list} />);
 
     return (
         <>

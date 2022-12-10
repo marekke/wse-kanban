@@ -7,6 +7,7 @@ import {useModalAction} from "../../modalAction";
 import ModalLink from "../../../components/helpers/ModalLink";
 import {useDrop} from "react-dnd";
 import {moveCard} from "../../card/cardSlice";
+import {useModalNavigate} from "../../../app/hooks";
 
 interface ListViewProps {
     list: List
@@ -15,7 +16,7 @@ interface ListViewProps {
 export default function ListView({list}: ListViewProps) {
     const cardsData = useSelector((state: ApplicationState) => cardSelectors.getCardsByListID(state, list.id));
     const cards = cardsData.map(card => <CardListItem key={card.id} card={card} />);
-    const {showUpdateListModal} = useModalAction();
+    const modalNavigate = useModalNavigate();
     const dispatch = useDispatch();
 
     const onDrop = (cardID: number) => {
@@ -42,7 +43,7 @@ export default function ListView({list}: ListViewProps) {
         <div className="card rounded-0 me-3" style={{width: '300px'}}>
             <div ref={drop} className="card-body pt-2 bg-light">
                 <div className="mb-2">
-                    <h5 onClick={() => {showUpdateListModal(list.id)}} className="card-title d-inline" style={{cursor: "pointer"}}>{list.title}</h5>
+                    <h5 onClick={() => {modalNavigate(`/lists/${list.id}/update`)}} className="card-title d-inline" style={{cursor: "pointer"}}>{list.title}</h5>
                     <ModalLink to={`/lists/${list.id}/cards/create`}>
                         <Plus
                             className="float-end fs-2 text-secondary"
