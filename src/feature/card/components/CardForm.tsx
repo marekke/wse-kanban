@@ -1,4 +1,5 @@
 import {useState} from "react";
+import {Card} from "../cardSlice";
 
 export interface ICardFormData {
     title: string,
@@ -6,12 +7,13 @@ export interface ICardFormData {
 };
 
 interface CardFormProps {
+    card?: Card
     submitHandler: (formData: ICardFormData) => void
 }
 
-export default function CardForm({submitHandler}: CardFormProps) {
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
+export default function CardForm({card, submitHandler}: CardFormProps) {
+    const [title, setTitle] = useState(card?.title || "");
+    const [content, setContent] = useState(card?.content || "");
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
@@ -30,7 +32,7 @@ export default function CardForm({submitHandler}: CardFormProps) {
 
             <div className="mt-3">
                 <label>Treść</label>
-                <textarea className="form-control" rows={4} value={content} onChange={(e) => setContent(e.target.value)}>
+                <textarea className="form-control" rows={6} value={content} onChange={(e) => setContent(e.target.value)}>
                 </textarea>
             </div>
 

@@ -11,7 +11,7 @@ export default function AppModal(props: AppModalProps) {
     const navigate = useNavigate();
 
     return (
-        <Modal show={true} onHide={() => navigate(-1)}>
+        <Modal show={true} onHide={() => navigate('/')}>
             <Modal.Header closeButton>
                 <Modal.Title className="h6">
                     {props.title}
