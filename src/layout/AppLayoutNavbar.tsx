@@ -1,6 +1,10 @@
-import ModalLink from "../components/helpers/ModalLink";
+import {useDispatch, useSelector} from "react-redux";
+import {userActions, userSelectors} from "../feature/user";
 
 export default function AppLayoutNavbar() {
+    const user = useSelector(userSelectors.getLoggedUser);
+    const dispatch = useDispatch();
+
     return (
         <nav className="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example">
             <div className="container-fluid">
@@ -14,19 +18,19 @@ export default function AppLayoutNavbar() {
                     <span className="navbar-toggler-icon"></span>
                 </button>
 
-                <div className="collapse navbar-collapse" id="navbarsExample02">
-                    <ul className="navbar-nav me-auto">
-                        <li className="nav-item">
-                            elo
+                <div className="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul className="navbar-nav ms-auto">
+                        <li className="nav-item dropdown">
+                            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                {user?.name}
+                            </a>
+                            <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                                <li className='dropdown-item' style={{fontSize: 14, cursor: "pointer"}} onClick={() => dispatch(userActions.logout())}>Wyloguj</li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
-
-                <ModalLink to={"/lists/create"}>
-                    <button className="btn btn-outline-light">
-                        Dodaj nową listę
-                    </button>
-                </ModalLink>
             </div>
         </nav>
     );

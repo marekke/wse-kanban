@@ -6,16 +6,24 @@ import AppModal from "./layout/AppModal";
 import {ListCreate, ListUpdate} from "./feature/list";
 import {CardCreate, CardView} from "./feature/card";
 import CardUpdate from "./feature/card/components/CardUpdate";
+import AppLogin from "./layout/AppLogin";
+import {useSelector} from "react-redux";
+import {userSelectors} from "./feature/user";
 
 function App() {
     const location = useLocation();
     const background = location.state && location.state.background;
+    const isLoggedUser = useSelector(userSelectors.getLoggedUser);
+
+    if (isLoggedUser === null && location.pathname !== "/login") {
+        return <Navigate to={"/login"} />
+    }
 
     return (
         <>
-
             <Routes location={background || location}>
                 <Route path="/" element={<AppLayout/>} />
+                <Route path="/login" element={<AppLogin/>} />
                 <Route path="*" element={<AppLayout/>} />
             </Routes>
             {background && (

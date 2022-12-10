@@ -1,15 +1,18 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import {cardReducer, CardState} from "../feature/card";
 import {listReducer, ListState} from "../feature/list";
+import {userReducer, IUserState} from "../feature/user";
 import {modalActionReducer, IModalAction} from "../feature/modalAction";
 
 export interface ApplicationState {
+    user: IUserState;
     card: CardState;
     list: ListState;
     modalAction: IModalAction
 }
 
 const combinedReducers = combineReducers({
+    user: userReducer,
     card: cardReducer,
     list: listReducer,
     modalAction: modalActionReducer
