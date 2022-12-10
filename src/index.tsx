@@ -10,6 +10,8 @@ import store from "./app/store";
 import {
     BrowserRouter,
 } from "react-router-dom";
+import {HTML5Backend} from "react-dnd-html5-backend";
+import {DndProvider} from "react-dnd";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -19,7 +21,9 @@ root.render(
   <React.StrictMode>
       <Provider store={store}>
           <BrowserRouter>
+              <DndProvider backend={HTML5Backend}>
             <App />
+              </DndProvider>
           </BrowserRouter>
       </Provider>
   </React.StrictMode>

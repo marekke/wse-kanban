@@ -16,6 +16,11 @@ interface INewCard {
     content: string
 }
 
+interface ICardMove {
+    cardID: number,
+    targetListID: number,
+}
+
 export interface CardState {
     [key: number]: Card
 }
@@ -54,7 +59,11 @@ const cardSlice = createSlice({
         },
         removeMultiple(state, action: PayloadAction<number[]>) {
             action.payload.forEach(id => delete state[id]);
+        },
+        cardMoved (state, action: PayloadAction<ICardMove>) {
+            state[action.payload.cardID].listID = action.payload.targetListID;
         }
+
     },
     extraReducers: (builder) => {
         builder
@@ -67,6 +76,13 @@ const cardSlice = createSlice({
             })
     }
 })
+
+export const moveCard = (cardID: number, targetListID: number) => {
+    return cardSlice.actions.cardMoved({
+        cardID,
+        targetListID
+    })
+}
 
 export const { create, removeMultiple } = cardSlice.actions
 export default cardSlice.reducer

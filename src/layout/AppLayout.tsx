@@ -1,13 +1,8 @@
 import {useSelector} from "react-redux";
 import AppLayoutNavbar from "./AppLayoutNavbar";
-import {ListCreate, listSelectors, ListView} from "../feature/list";
-import {Navigate, Route, Routes, useLocation} from "react-router-dom";
-import AppModal from "./AppModal";
-import {CardCreate, CardView} from "../feature/card";
+import {listSelectors, ListView} from "../feature/list";
 
 function AppLayout() {
-    const location = useLocation();
-
     const listsData = useSelector(listSelectors.getLists);
     const lists = listsData.map(list => <ListView list={list} />);
 
