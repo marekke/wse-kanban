@@ -7,6 +7,7 @@ import ModalLink from "../../../components/helpers/ModalLink";
 import {useDrop} from "react-dnd";
 import {moveCard} from "../../card/cardSlice";
 import {useModalNavigate} from "../../../app/hooks";
+import confirmationAlert from "../../../app/confirmationAlert";
 
 interface ListViewProps {
     list: List
@@ -35,7 +36,7 @@ export default function ListView({list}: ListViewProps) {
 
     function clickRemoveListHandler(e: any) {
         e.preventDefault();
-        dispatch(remove(list.id));
+        confirmationAlert("Czy na pewno usunąć listę?", () => {dispatch(remove(list.id))});
     }
 
     return (

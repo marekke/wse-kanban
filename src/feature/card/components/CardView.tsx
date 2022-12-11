@@ -11,6 +11,7 @@ import {userSelectors} from "../../user";
 import Avatar from "react-avatar";
 import {IUser} from "../../user/userSlice";
 import {cardActions} from "../index";
+import confirmationAlert from "../../../app/confirmationAlert";
 
 
 export default function CardView() {
@@ -47,12 +48,15 @@ export default function CardView() {
     }
 
     function doRemoveUserFromCard(userID: number) {
-        dispatch(cardActions.removeUserFromCard(cardID, userID));
+        confirmationAlert("Czy na pewno usunąć użytkownika z karty?",
+            () => {dispatch(cardActions.removeUserFromCard(cardID, userID))});
     }
 
     function onDeleteCardButtonHandler() {
-        dispatch(remove(cardID));
-        navigate('/');
+        confirmationAlert("Czy na pewno usunąć kartę?", () => {
+            dispatch(remove(cardID));
+            navigate('/');
+        });
     }
 
     return (
