@@ -8,12 +8,14 @@ export interface Card {
     listID: number,
     title: string,
     content: string
+    users: number[],
 }
 
 interface INewCard {
     listID: number,
     title: string,
-    content: string
+    content: string,
+    users: number[],
 }
 
 interface IUpdateCard {
@@ -37,18 +39,21 @@ const initialState = {
         listID: 1,
         title: "Test 1 test test test",
         content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+        users: [1,2],
     },
     2: {
         id: 2,
         listID: 1,
         title: "Test 1 test test test",
         content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+        users: [1,2],
     },
     3: {
         id: 3,
         listID: 2,
         title: "Test 1 test test test",
         content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+        users: [1],
     }
 } as CardState
 
@@ -75,7 +80,19 @@ const cardSlice = createSlice({
         },
         cardMoved (state, action: PayloadAction<ICardMove>) {
             state[action.payload.cardID].listID = action.payload.targetListID;
-        }
+        },
+        userAssignedToCard (state, action: PayloadAction<{cardID: number, userID: number}>) {
+            state[action.payload.cardID].users.push(action.payload.userID);
+        },
+        userRemovedFromCard (state, action: PayloadAction<{cardID: number, userID: number}>) {
+            const users = state[action.payload.cardID].users;
+
+            if (users.length === 1) {
+                return;
+            }
+
+            state[action.payload.cardID].users = users.filter(u => u !== action.payload.userID);
+        },
 
     },
     extraReducers: (builder) => {
@@ -95,6 +112,20 @@ export const moveCard = (cardID: number, targetListID: number) => {
         cardID,
         targetListID
     })
+}
+
+export const assignUserToCard = (cardID: number, userID: number) => {
+    return cardSlice.actions.userAssignedToCard({
+        userID,
+        cardID
+    });
+}
+
+export const removeUserFromCard = (cardID: number, userID: number) => {
+    return cardSlice.actions.userRemovedFromCard({
+        userID,
+        cardID
+    });
 }
 
 export const { create, removeMultiple, update, remove } = cardSlice.actions

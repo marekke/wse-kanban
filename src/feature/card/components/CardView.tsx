@@ -7,6 +7,10 @@ import {Dropdown, DropdownButton} from "react-bootstrap";
 import {getLists} from "../../list/selectors";
 import {List} from "../../list";
 import {moveCard, remove} from "../cardSlice";
+import {userSelectors} from "../../user";
+import Avatar from "react-avatar";
+import {IUser} from "../../user/userSlice";
+import {cardActions} from "../index";
 
 
 export default function CardView() {
@@ -15,6 +19,9 @@ export default function CardView() {
 
     const card = useSelector((state: ApplicationState) => getCardByID(state, Number(cardID)));
     const lists = useSelector((state: ApplicationState) => getLists(state));
+    const allUsers = useSelector(userSelectors.getAllUsers);
+    const users = allUsers.filter((user: IUser) => card.users.includes(user.id));
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -22,9 +29,25 @@ export default function CardView() {
         return <Dropdown.Item style={{fontSize: 14}} onClick={() => doMoveCard(list.id)}>{list.title}</Dropdown.Item>
     });
 
+    const addUserDropdownElements = allUsers.filter(user => !card.users.includes(user.id)).map((user: IUser) => {
+        return <Dropdown.Item style={{fontSize: 14}} onClick={() => doAssign(user.id)}>{user.name}</Dropdown.Item>;
+    });
+
+    const usersAvatars = users.map(user =>
+        <Avatar onClick={() => {doRemoveUserFromCard(user.id)}} style={{cursor: "pointer"}} className={"me-2"} size={"30"} textSizeRatio={1.8} round={true} title={user.name}  key={user.id} name={`${user.name}`} />
+    );
+
+    function doAssign(userID: number) {
+        dispatch(cardActions.assignUserToCard(cardID, userID));
+    }
+
     function doMoveCard(listID: number) {
         dispatch(moveCard(cardID, listID));
         navigate('/');
+    }
+
+    function doRemoveUserFromCard(userID: number) {
+        dispatch(cardActions.removeUserFromCard(cardID, userID));
     }
 
     function onDeleteCardButtonHandler() {
@@ -35,6 +58,13 @@ export default function CardView() {
     return (
         <>
             <div className="text-end">
+                <div className="d-inline float-start">
+                    {usersAvatars}
+                    <DropdownButton className="d-inline" size="sm" title="Dodaj" variant="secondary" drop="down">
+                        {addUserDropdownElements}
+                    </DropdownButton>
+                </div>
+
                 <ModalLink to={`/cards/${cardID}/update`}>
                     <button className="btn btn-sm btn-primary me-2">Edytuj</button>
                 </ModalLink>
