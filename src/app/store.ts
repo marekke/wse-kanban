@@ -48,8 +48,7 @@ function saveToLocalStorage(state: RootState) {
 const store = configureStore({
     reducer: rootReducer,
     devTools: process.env.NODE_ENV !== 'production',
-    // preloadedState: loadFromLocalStorage(),
-    // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
+    preloadedState: loadFromLocalStorage(),
 });
 store.subscribe(() => saveToLocalStorage(store.getState()));
 
