@@ -3,7 +3,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {ApplicationState} from "../../../app/store";
 import {CardListItem, cardSelectors} from "../../card";
 import {List, remove} from "../listSlice";
-import {useModalAction} from "../../modalAction";
 import ModalLink from "../../../components/helpers/ModalLink";
 import {useDrop} from "react-dnd";
 import {moveCard} from "../../card/cardSlice";

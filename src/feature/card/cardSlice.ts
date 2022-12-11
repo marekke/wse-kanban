@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import {listActions} from "../list";
 import {generateIDForEntity} from "../../utils/IDGeneratator";
+import {exampleCardState, exampleUserState} from "../../app/exampleData";
+import {IUserState} from "../user";
 
 export interface Card {
     id: number,
@@ -33,29 +35,7 @@ export interface CardState {
     [key: number]: Card
 }
 
-const initialState = {
-    1: {
-        id: 1,
-        listID: 1,
-        title: "Test 1 test test test",
-        content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-        users: [1,2],
-    },
-    2: {
-        id: 2,
-        listID: 1,
-        title: "Test 1 test test test",
-        content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-        users: [1,2],
-    },
-    3: {
-        id: 3,
-        listID: 2,
-        title: "Test 1 test test test",
-        content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-        users: [1],
-    }
-} as CardState
+const initialState: CardState = {};
 
 const cardSlice = createSlice({
     name: 'card',
@@ -103,6 +83,12 @@ const cardSlice = createSlice({
                         delete state[id];
                     }
                 }
+            })
+            .addCase("app/load_example_data", (state: CardState) => {
+                return exampleCardState;
+            })
+            .addCase("app/clear_all_data", (state: CardState) => {
+                return initialState;
             })
     }
 })

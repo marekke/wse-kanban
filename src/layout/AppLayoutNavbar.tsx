@@ -1,5 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {userActions, userSelectors} from "../feature/user";
+import {AnyAction} from "@reduxjs/toolkit";
 
 export default function AppLayoutNavbar() {
     const user = useSelector(userSelectors.getLoggedUser);
@@ -27,6 +28,7 @@ export default function AppLayoutNavbar() {
                             </a>
                             <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                                 <li className='dropdown-item' style={{fontSize: 14, cursor: "pointer"}} onClick={() => dispatch(userActions.logout())}>Wyloguj</li>
+                                <li className='dropdown-item text-danger' style={{fontSize: 14, cursor: "pointer"}} onClick={() => dispatch({type: "app/clear_all_data"})}>Wyczyść dane</li>
                             </ul>
                         </li>
                     </ul>

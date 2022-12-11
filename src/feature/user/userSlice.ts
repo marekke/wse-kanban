@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {generateIDForEntity} from "../../utils/IDGeneratator";
+import {exampleUserState} from "../../app/exampleData";
 
 export interface IUser {
     id: number,
@@ -19,16 +20,7 @@ export interface IUserState {
 
 const initialState: IUserState = {
     loggedUser: null,
-    users: {
-        1: {
-            id: 1,
-            name: "Adam"
-        },
-        2: {
-            id: 2,
-            name: "Ewa"
-        },
-    }
+    users: {}
 };
 
 const userSlice = createSlice({
@@ -61,6 +53,15 @@ const userSlice = createSlice({
         logout(state) {
             state.loggedUser = null;
         }
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase("app/load_example_data", (state: IUserState) => {
+                return exampleUserState;
+            })
+            .addCase("app/clear_all_data", (state: IUserState) => {
+                return initialState;
+            })
     }
 })
 

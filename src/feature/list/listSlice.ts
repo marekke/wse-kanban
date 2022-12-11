@@ -1,5 +1,8 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {generateIDForEntity} from "../../utils/IDGeneratator";
+import {listActions} from "./index";
+import {CardState} from "../card";
+import {exampleListState} from "../../app/exampleData";
 
 export interface List {
     id: number,
@@ -20,18 +23,7 @@ export interface ListState {
     [key: number]: List
 }
 
-const initialState: ListState = {
-    1: {
-        id: 1,
-        title: 'Testowa 1',
-        cardsOrder: []
-    },
-    2: {
-        id: 2,
-        title: 'Testowa 2',
-        cardsOrder: []
-    }
-}
+const initialState: ListState = {}
 
 const listSlice = createSlice({
     name: 'list',
@@ -51,6 +43,15 @@ const listSlice = createSlice({
         remove(state, action: PayloadAction<number>) {
             delete state[action.payload];
         }
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase("app/load_example_data", (state: ListState) => {
+                return exampleListState;
+            })
+            .addCase("app/clear_all_data", (state: ListState) => {
+                return initialState;
+            })
     }
 });
 
